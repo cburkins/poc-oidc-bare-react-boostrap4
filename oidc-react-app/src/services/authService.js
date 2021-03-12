@@ -31,6 +31,7 @@ export default class AuthService {
     }
 
     signinRedirectCallback = () => {
+        console.log("signinRedirectCallback()");
         this.UserManager.signinRedirectCallback().then(() => {
             "";
         });
@@ -51,6 +52,7 @@ export default class AuthService {
     };
 
     signinRedirect = () => {
+        console.log("signinRedirect() with location:", window.location.pathname);
         localStorage.setItem("redirectUri", window.location.pathname);
         this.UserManager.signinRedirect({});
     };
@@ -63,6 +65,7 @@ export default class AuthService {
         const oidcStorage = JSON.parse(
             sessionStorage.getItem(`oidc.user:${process.env.REACT_APP_AUTH_URL}:${process.env.REACT_APP_IDENTITY_CLIENT_ID}`)
         );
+        console.log("isAuthenticated(), oidcStorage:", oidcStorage);
 
         return !!oidcStorage && !!oidcStorage.access_token;
     };
