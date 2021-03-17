@@ -21,3 +21,5 @@ export const Routes = (
         <Route path="/" component={PublicPage} />
     </Switch>
 );
+
+export default Routes;
