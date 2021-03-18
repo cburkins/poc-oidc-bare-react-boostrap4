@@ -15,6 +15,8 @@ import { SilentRenew } from "./components/auth/silentRenew";
 import { PublicPage } from "./components/publicPage";
 import { PrivatePage } from "./components/privatePage";
 
+import { Nav, Navbar } from "react-bootstrap";
+
 class App extends Component {
     render() {
         return (
@@ -22,11 +24,22 @@ class App extends Component {
                 <AuthProvider>
                     {/* <BrowserRouter children={Routes} basename={"/"} /> */}
                     <BrowserRouter>
-                        <Link to="/">Home</Link>
-
-                        <Link to="/logout">Logout</Link>
-                        <Link to="/login">Login</Link>
-                        <Link to="/dashboard">Dashboard</Link>
+                        <Navbar bg="light">
+                            <Nav>
+                                <Nav.Link as={Link} to="/">
+                                    Home
+                                </Nav.Link>
+                                <Nav.Link as={Link} to="/logout">
+                                    Logout
+                                </Nav.Link>
+                                <Nav.Link as={Link} to="/login">
+                                    Login
+                                </Nav.Link>
+                                <Nav.Link as={Link} to="/dashboard">
+                                    Dashboard
+                                </Nav.Link>
+                            </Nav>
+                        </Navbar>
 
                         <Switch>
                             <Route exact={true} path="/signin-oidc" component={Callback} />
