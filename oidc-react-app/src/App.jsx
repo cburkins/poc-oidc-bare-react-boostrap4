@@ -5,13 +5,14 @@ import { BrowserRouter, Link } from "react-router-dom";
 
 import { Route, Switch } from "react-router-dom";
 
-import { Callback } from "./components/auth/callback";
-import { Logout } from "./components/auth/logout";
-import { Login } from "./components/auth/login";
-import { LogoutCallback } from "./components/auth/logoutCallback";
+import { Callback } from "./components/authCallback";
+import { Logout } from "./components/authLogout";
+import { Login } from "./components/authLogin";
+import { LogoutCallback } from "./components/authLogoutCallback";
+import { Register } from "./components/authRegister";
+import { SilentRenew } from "./components/authSilentRenew";
+
 import { PrivateRoute } from "./providers/privateRoute";
-import { Register } from "./components/auth/register";
-import { SilentRenew } from "./components/auth/silentRenew";
 import { PublicPage } from "./components/publicPage";
 import { PrivatePage } from "./components/privatePage";
 

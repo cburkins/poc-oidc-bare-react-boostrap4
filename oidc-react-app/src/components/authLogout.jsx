@@ -1,7 +1,7 @@
 /* /src/components/auth/logout.jsx */
 
 import React from "react";
-import { AuthConsumer } from "../../providers/authProvider";
+import { AuthConsumer } from "../providers/authProvider";
 
 export const Logout = () => (
     <AuthConsumer>

@@ -10,11 +10,11 @@ const IDENTITY_CONFIG = {
     loadUserInfo: false, //(boolean, default: true): Flag to control if additional identity data is loaded from the user info endpoint in order to populate the user's profile.
     // silent_redirect_uri: process.env.REACT_APP_SILENT_REDIRECT_URL, //(string): The URL for the page containing the code handling the silent renew.
     post_logout_redirect_uri: process.env.REACT_APP_LOGOFF_REDIRECT_URL, // (string): The OIDC post-logout redirect URI.
-    // audience: "https://example.com", //is there a way to specific the audience when making the jwt
+    audience: "https://example.com", //is there a way to specific the audience when making the jwt
     scope: "openid", //(string, default: 'openid'): The scope being requested from the OIDC provider.
     // Helpful as Azure tenant OIDC does not seem to return a /checksession endpoint
     monitorSession: false,
-    // webAuthResponseType: "id_token token",
+    response_type: "id_token token",
     // metadataSeed: {
     //     check_session_iframe: process.env.REACT_APP_AUTH_URL + "/checksession",
     // },
@@ -35,7 +35,7 @@ export default class AuthService {
 
         this.UserManager.events.addUserLoaded((user) => {
             if (window.location.href.indexOf("signin-oidc") !== -1) {
-                console.log("UserManager() event addUserLoaded has triggered navigateToScreen()");
+                console.log("UserManager() event addUserLoaded has triggered navigateToScreen(), here's the user record:", user);
                 this.navigateToScreen();
             }
         });
@@ -51,8 +51,8 @@ export default class AuthService {
 
     signinRedirectCallback = () => {
         console.log("signinRedirectCallback()");
-        this.UserManager.signinRedirectCallback().then(() => {
-            "";
+        this.UserManager.signinRedirectCallback().then((user) => {
+            console.warn("signinRedirectCallback() and user:", user);
         });
     };
 
@@ -78,16 +78,21 @@ export default class AuthService {
 
     navigateToScreen = () => {
         console.log("navigateToScreen()");
-        window.location.replace("/en/dashboard");
+        window.location.replace("/dashboard");
     };
 
     isAuthenticated = () => {
+        // There are two ways to perform this function
+        // 1) Perform the same effect by using UserManager.getUser() which is async, and annoying to wait for
+        // 2) Use sessionStorage.getItem to manually get the object (and access_token) that should be there
+        // Method 2 has the same effect, and is sync, so we use that
+
         const oidcStorage = JSON.parse(
             sessionStorage.getItem(`oidc.user:${process.env.REACT_APP_AUTH_URL}:${process.env.REACT_APP_IDENTITY_CLIENT_ID}`)
         );
-        console.log("isAuthenticated(), oidcStorage:", oidcStorage);
 
-        return !!oidcStorage && !!oidcStorage.access_token;
+        // If there's an access_token, in the oidc-client user object, then the user is likely authenticated (could be expired)
+        return !!oidcStorage?.access_token;
     };
 
     signinSilent = () => {
