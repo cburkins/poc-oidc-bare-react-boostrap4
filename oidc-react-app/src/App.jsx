@@ -40,8 +40,8 @@ class App extends Component {
                                 <Nav.Link as={Link} to="/privatepage01">
                                     PrivatePage01
                                 </Nav.Link>
-                                <Nav.Link as={Link} to="/dashboard">
-                                    Dashboard
+                                <Nav.Link as={Link} to="/privatepage02">
+                                    PrivatePage02
                                 </Nav.Link>
                             </Nav>
                         </Navbar>
@@ -54,7 +54,7 @@ class App extends Component {
                             <Route exact={true} path="/register" component={Register} />
                             <Route exact={true} path="/silentrenew" component={SilentRenew} />
                             <PrivateRoute path="/privatepage01" component={PrivatePage} />
-                            <PrivateRouteAddManualProp path="/dashboard" component={PrivatePage} custom_message={"Hi Pebbles"} />
+                            <PrivateRouteAddManualProp path="/privatepage02" component={PrivatePage} custom_message={"Hi Pebbles"} />
                             <Route path="/" component={PublicPage} />
                         </Switch>
                     </BrowserRouter>

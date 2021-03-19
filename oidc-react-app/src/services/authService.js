@@ -15,7 +15,10 @@ const IDENTITY_CONFIG = {
     // Helpful as Azure tenant OIDC does not seem to return a /checksession endpoint
     monitorSession: false,
     response_type: "code",
-    prompt: "consent",
+    // docs: https://openid.net/specs/openid-connect-core-1_0.html
+    // "login" forces login, "consent" forces consent, null shows login/consent as needed, "none" forces no login and no consent
+    prompt: null,
+    // Gives you ability to add additional properties to those returned by /.well-known/openid-configuration
     // metadataSeed: {
     //     check_session_iframe: process.env.REACT_APP_AUTH_URL + "/checksession",
     // },
@@ -79,7 +82,7 @@ export default class AuthService {
 
     navigateToScreen = () => {
         console.log("navigateToScreen()");
-        window.location.replace("/dashboard");
+        window.location.replace("/");
     };
 
     isAuthenticated = () => {
