@@ -1,12 +1,12 @@
 /* /src/components/auth/callback.jsx */
 import React from "react";
-import { AuthConsumer } from "../providers/authProvider";
+import { AuthContextConsumer } from "../providers/authProvider";
 
 export const Callback = () => (
-    <AuthConsumer>
-        {({ signinRedirectCallback }) => {
-            signinRedirectCallback();
+    <AuthContextConsumer>
+        {(authContext) => {
+            authContext.signinRedirectCallback();
             return <span>loading</span>;
         }}
-    </AuthConsumer>
+    </AuthContextConsumer>
 );

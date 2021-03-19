@@ -1,13 +1,13 @@
 /* /src/routes/privateRoute.jsx */
 import React from "react";
 import { Route } from "react-router-dom";
-import { AuthConsumer } from "../providers/authProvider";
+import { AuthContextConsumer } from "../providers/authProvider";
 
 export const PrivateRoute = ({ component, ...rest }) => {
     console.log("start PrivateRoute() component");
 
     // const renderFn = (Component) => (props) => (
-    //     <AuthConsumer>
+    //     <AuthContextConsumer>
     //         {({ isAuthenticated, signinRedirect }) => {
     //             console.log("PrivateRoute(): about to check if authenticated");
     //             console.log("PrivateRoute(): isAuthenticated=", isAuthenticated());
@@ -19,12 +19,12 @@ export const PrivateRoute = ({ component, ...rest }) => {
     //                 return <span>loading</span>;
     //             }
     //         }}
-    //     </AuthConsumer>
+    //     </AuthContextConsumer>
     // );
 
     // const renderFn = (Component) => (props) => {
     //     return (
-    //         <AuthConsumer>
+    //         <AuthContextConsumer>
     //             {({ isAuthenticated, signinRedirect }) => {
     //                 console.log("PrivateRoute(): about to check if authenticated");
     //                 console.log("PrivateRoute(): isAuthenticated=", isAuthenticated());
@@ -36,18 +36,19 @@ export const PrivateRoute = ({ component, ...rest }) => {
     //                     return <span>loading</span>;
     //                 }
     //             }}
-    //         </AuthConsumer>
+    //         </AuthContextConsumer>
     //     );
     // };
 
-    const renderFn = (Component) =>
-        function (props) {
-            return (
-                <AuthConsumer>
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // This is a HOC: Takes a Component as arg, returns a modified Compoment
+    const withAuthHOC = function (Component) {
+        //
+        // A function that takes props, and returns JSX ?
+        let FunctionalComponent = function (props) {
+            let JSXThatWeReturn = (
+                <AuthContextConsumer>
                     {({ isAuthenticated, signinRedirect }) => {
-                        console.log("PrivateRoute(): about to check if authenticated");
-                        console.log("PrivateRoute(): isAuthenticated=", isAuthenticated());
-                        console.log("PrivateRoute():");
                         if (!!Component && isAuthenticated()) {
                             return <Component {...props} />;
                         } else {
@@ -55,13 +56,19 @@ export const PrivateRoute = ({ component, ...rest }) => {
                             return <span>loading</span>;
                         }
                     }}
-                </AuthConsumer>
+                </AuthContextConsumer>
             );
+            return JSXThatWeReturn;
         };
+        //
+        return FunctionalComponent;
+    };
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    let chad = renderFn(component);
+    // let chad = withAuthHOC(<component name="Hi Chad" />);
+    let NewComponent = withAuthHOC(component);
 
     // I think this is a render prop, leveraging a Higher Order Component (HOC)
     // The render prop requires a function that is essentially a React Component
-    return <Route {...rest} render={chad} />;
+    return <Route {...rest} render={() => <NewComponent name="Hi Chad" />} />;
 };

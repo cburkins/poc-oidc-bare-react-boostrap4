@@ -1,13 +1,13 @@
 /* /src/components/auth/logoutCallback.jsx */
 
 import React from "react";
-import { AuthConsumer } from "../providers/authProvider";
+import { AuthContextConsumer } from "../providers/authProvider";
 
 export const LogoutCallback = () => (
-    <AuthConsumer>
-        {({ signoutRedirectCallback }) => {
-            signoutRedirectCallback();
+    <AuthContextConsumer>
+        {(authContext) => {
+            authContext.signoutRedirectCallback();
             return <span>loading</span>;
         }}
-    </AuthConsumer>
+    </AuthContextConsumer>
 );

@@ -1,12 +1,12 @@
 /* /src/components/auth/silentRenew.jsx */
 
 import React from "react";
-import { AuthConsumer } from "../providers/authProvider";
+import { AuthContextConsumer } from "../providers/authProvider";
 export const SilentRenew = () => (
-    <AuthConsumer>
-        {({ signinSilentCallback }) => {
-            signinSilentCallback();
+    <AuthContextConsumer>
+        {(authContext) => {
+            authContext.signinSilentCallback();
             return <span>loading</span>;
         }}
-    </AuthConsumer>
+    </AuthContextConsumer>
 );

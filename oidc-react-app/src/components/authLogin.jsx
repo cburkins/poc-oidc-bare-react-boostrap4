@@ -1,13 +1,13 @@
 /* /src/components/auth/login.jsx */
 
 import React from "react";
-import { AuthConsumer } from "../providers/authProvider";
+import { AuthContextConsumer } from "../providers/authProvider";
 
 export const Login = () => (
-    <AuthConsumer>
-        {({ signinRedirect }) => {
-            signinRedirect();
+    <AuthContextConsumer>
+        {({ authContext }) => {
+            authContext.signinRedirect();
             return <span>loading</span>;
         }}
-    </AuthConsumer>
+    </AuthContextConsumer>
 );

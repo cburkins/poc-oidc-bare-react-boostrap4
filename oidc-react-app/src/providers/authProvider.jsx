@@ -13,9 +13,9 @@ const AuthContext = React.createContext({
     createSigninRequest: () => ({}),
 });
 
-export const AuthConsumer = AuthContext.Consumer;
+export const AuthContextConsumer = AuthContext.Consumer;
 
-export class AuthProvider extends Component {
+export class AuthContextProvider extends Component {
     authService;
     constructor(props) {
         super(props);

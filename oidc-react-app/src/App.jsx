@@ -1,6 +1,6 @@
 /* /src/app.jsx */
 import React, { Component } from "react";
-import { AuthProvider } from "./providers/authProvider";
+import { AuthContextProvider } from "./providers/authProvider";
 import { BrowserRouter, Link } from "react-router-dom";
 
 import { Route, Switch } from "react-router-dom";
@@ -13,6 +13,7 @@ import { Register } from "./components/authRegister";
 import { SilentRenew } from "./components/authSilentRenew";
 
 import { PrivateRoute } from "./providers/privateRoute";
+import { PrivateRouteAddManualProp } from "./providers/privateRouteAddManualProp";
 import { PublicPage } from "./components/publicPage";
 import { PrivatePage } from "./components/privatePage";
 
@@ -22,7 +23,7 @@ class App extends Component {
     render() {
         return (
             <div>
-                <AuthProvider>
+                <AuthContextProvider>
                     {/* <BrowserRouter children={Routes} basename={"/"} /> */}
                     <BrowserRouter>
                         <Navbar bg="light">
@@ -35,6 +36,9 @@ class App extends Component {
                                 </Nav.Link>
                                 <Nav.Link as={Link} to="/login">
                                     Login
+                                </Nav.Link>
+                                <Nav.Link as={Link} to="/privatepage01">
+                                    PrivatePage01
                                 </Nav.Link>
                                 <Nav.Link as={Link} to="/dashboard">
                                     Dashboard
@@ -49,11 +53,12 @@ class App extends Component {
                             <Route exact={true} path="/logout/callback" component={LogoutCallback} />
                             <Route exact={true} path="/register" component={Register} />
                             <Route exact={true} path="/silentrenew" component={SilentRenew} />
-                            <PrivateRoute path="/dashboard" component={PrivatePage} />
+                            <PrivateRoute path="/privatepage01" component={PrivatePage} />
+                            <PrivateRouteAddManualProp path="/dashboard" component={PrivatePage} custom_message={"Hi Pebbles"} />
                             <Route path="/" component={PublicPage} />
                         </Switch>
                     </BrowserRouter>
-                </AuthProvider>
+                </AuthContextProvider>
             </div>
         );
     }

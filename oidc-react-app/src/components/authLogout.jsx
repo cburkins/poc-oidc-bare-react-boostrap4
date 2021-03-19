@@ -1,13 +1,13 @@
 /* /src/components/auth/logout.jsx */
 
 import React from "react";
-import { AuthConsumer } from "../providers/authProvider";
+import { AuthContextConsumer } from "../providers/authProvider";
 
 export const Logout = () => (
-    <AuthConsumer>
-        {({ logout }) => {
-            logout();
+    <AuthContextConsumer>
+        {(authContext) => {
+            authContext.logout();
             return <span>loading</span>;
         }}
-    </AuthConsumer>
+    </AuthContextConsumer>
 );
