@@ -14,7 +14,8 @@ const IDENTITY_CONFIG = {
     scope: "openid", //(string, default: 'openid'): The scope being requested from the OIDC provider.
     // Helpful as Azure tenant OIDC does not seem to return a /checksession endpoint
     monitorSession: false,
-    response_type: "id_token token",
+    response_type: "code",
+    prompt: "consent",
     // metadataSeed: {
     //     check_session_iframe: process.env.REACT_APP_AUTH_URL + "/checksession",
     // },
@@ -113,9 +114,12 @@ export default class AuthService {
     };
 
     logout = () => {
-        this.UserManager.signoutRedirect({
-            id_token_hint: localStorage.getItem("id_token"),
-        });
+        // This original code that added the "id_token_hint" seems to confuse Azure OIDC,
+        //and causes it to perform a second redirect after my logout, and i never come back to my application, end up on office.com
+        // this.UserManager.signoutRedirect({
+        //     id_token_hint: localStorage.getItem("id_token"),
+        // });
+        this.UserManager.signoutRedirect();
         this.UserManager.clearStaleState();
     };
 

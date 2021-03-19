@@ -5,7 +5,7 @@ import { AuthContextConsumer } from "../providers/authProvider";
 
 export const Login = () => (
     <AuthContextConsumer>
-        {({ authContext }) => {
+        {(authContext) => {
             authContext.signinRedirect();
             return <span>loading</span>;
         }}
