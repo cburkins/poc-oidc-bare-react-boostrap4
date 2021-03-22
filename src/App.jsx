@@ -17,6 +17,7 @@ import { PrivateRoute } from "./providers/privateRoute";
 import { PrivateRouteAddManualProp } from "./providers/privateRouteAddManualProp";
 import { PublicPage } from "./components/publicPage";
 import { PrivatePage } from "./components/privatePage";
+import { HomePage } from "./components/homePage";
 
 import { Nav, Navbar } from "react-bootstrap";
 
@@ -28,7 +29,8 @@ class App extends Component {
                     {/* <BrowserRouter children={Routes} basename={"/"} /> */}
                     <AuthContextConsumer>
                         {(authContext) => {
-                            // inside contextr
+                            // inside context
+                            const isAuthenticatedBooleanString = authContext.isAuthenticated() ? "Authenticated" : "Not Authenticated";
                             return (
                                 <BrowserRouter>
                                     <Navbar bg="light">
@@ -37,11 +39,8 @@ class App extends Component {
                                             <Nav.Link as={Link} to="/">
                                                 Home
                                             </Nav.Link>
-                                            <Nav.Link as={Link} to="/logout">
-                                                Logout
-                                            </Nav.Link>
-                                            <Nav.Link as={Link} to="/login">
-                                                Login
+                                            <Nav.Link as={Link} to="/publicpage">
+                                                PublicPage
                                             </Nav.Link>
                                             <Nav.Link as={Link} to="/privatepage01">
                                                 PrivatePage01
@@ -52,9 +51,14 @@ class App extends Component {
                                         </Nav>
                                         {/* 2nd Nav item, gets pushed to right because of mr-auto on first item */}
                                         <Nav>
-                                            <Nav>Status: Fake-Status</Nav>
+                                            {/* To match links, seems you have to add a bit of padding */}
+                                            <Nav style={{ padding: "8px" }}>Status: {isAuthenticatedBooleanString}</Nav>
                                             <Nav className="ml-3">
-                                                <button onClick={() => authContext.logout()}>Log out</button>
+                                                {authContext.isAuthenticated() ? (
+                                                    <button onClick={() => authContext.logout()}>Log out</button>
+                                                ) : (
+                                                    <button onClick={() => authContext.signinRedirect()}>Log in</button>
+                                                )}
                                             </Nav>
                                         </Nav>
                                     </Navbar>
@@ -66,9 +70,10 @@ class App extends Component {
                                         <Route exact={true} path="/logout/callback" component={LogoutCallback} />
                                         <Route exact={true} path="/register" component={Register} />
                                         <Route exact={true} path="/silentrenew" component={SilentRenew} />
+                                        <Route exact={true} path="/publicpage" component={PublicPage} />
                                         <PrivateRoute path="/privatepage01" component={PrivatePage} />
                                         <PrivateRouteAddManualProp path="/privatepage02" component={PrivatePage} custom_message={"Hi Pebbles"} />
-                                        <Route path="/" component={PublicPage} />
+                                        <Route path="/" component={HomePage} />
                                     </Switch>
                                 </BrowserRouter>
                             );
