@@ -4,4 +4,4 @@ My own basic framework for implementing client-side user authentication within a
 
 # Screenshot
 
-![image](https://user-images.githubusercontent.com/9342308/111884848-930cf180-899a-11eb-9bc6-7087d97205f6.png)
+![image](https://user-images.githubusercontent.com/9342308/112012799-ddf44980-8aff-11eb-82a7-73ccebb59a16.png)
