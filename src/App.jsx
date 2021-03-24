@@ -17,6 +17,7 @@ import { PrivateRoute } from "./providers/privateRoute";
 import { PrivateRouteAddManualProp } from "./providers/privateRouteAddManualProp";
 import { PublicPage } from "./components/publicPage";
 import { PrivatePage } from "./components/privatePage";
+import { UserInfo } from "./components/UserInfo";
 import { HomePage } from "./components/homePage";
 
 import { Nav, Navbar } from "react-bootstrap";
@@ -48,6 +49,9 @@ class App extends Component {
                                             <Nav.Link as={Link} to="/privatepage02">
                                                 PrivatePage02
                                             </Nav.Link>
+                                            <Nav.Link as={Link} to="/userinfo">
+                                                UserInfo
+                                            </Nav.Link>
                                         </Nav>
                                         {/* 2nd Nav item, gets pushed to right because of mr-auto on first item */}
                                         <Nav>
@@ -72,6 +76,7 @@ class App extends Component {
                                         <Route exact={true} path="/silentrenew" component={SilentRenew} />
                                         <Route exact={true} path="/publicpage" component={PublicPage} />
                                         <PrivateRoute path="/privatepage01" component={PrivatePage} />
+                                        <PrivateRoute path="/userinfo" component={UserInfo} />
                                         <PrivateRouteAddManualProp path="/privatepage02" component={PrivatePage} custom_message={"Hi Pebbles"} />
                                         <Route path="/" component={HomePage} />
                                     </Switch>

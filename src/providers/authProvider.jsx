@@ -11,7 +11,7 @@ import AuthService from "../services/authService";
 // More info here: https://kentcdodds.com/blog/how-to-use-react-context-effectively
 // Tested, and destructing within the Consumer still works without the defaultValue object
 // So could easily delete 1st (only only) argument to .createContext()
-const AuthContext = React.createContext({
+export const AuthContext = React.createContext({
     signinRedirectCallback: () => ({}),
     logout: () => ({}),
     signoutRedirectCallback: () => ({}),

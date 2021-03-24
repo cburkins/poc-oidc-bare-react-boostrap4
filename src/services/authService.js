@@ -11,7 +11,7 @@ const IDENTITY_CONFIG = {
     // silent_redirect_uri: process.env.REACT_APP_SILENT_REDIRECT_URL, //(string): The URL for the page containing the code handling the silent renew.
     post_logout_redirect_uri: process.env.REACT_APP_LOGOFF_REDIRECT_URL, // (string): The OIDC post-logout redirect URI.
     audience: "https://example.com", //is there a way to specific the audience when making the jwt
-    scope: "openid", //(string, default: 'openid'): The scope being requested from the OIDC provider.
+    scope: "openid profile email", //(string, default: 'openid'): The scope being requested from the OIDC provider.
     // Helpful as Azure tenant OIDC does not seem to return a /checksession endpoint
     monitorSession: false,
     response_type: "code",
