@@ -14,7 +14,9 @@ import { Register } from "./components/authRegister";
 import { SilentRenew } from "./components/authSilentRenew";
 
 import { PrivateRoute } from "./providers/privateRoute";
-import { PrivateRouteAddManualProp } from "./providers/privateRouteAddManualProp";
+import { PrivateRoutePassProps } from "./providers/privateRoutePassProps";
+import { PrivateRouteComponentOrRender } from "./providers/PrivateRouteComponentOrRender";
+import { PrivateRouteOnlyRender } from "./providers/PrivateRouteOnlyRender";
 import { PublicPage } from "./components/publicPage";
 import { PrivatePage } from "./components/privatePage";
 import { UserInfo } from "./components/UserInfo";
@@ -49,6 +51,15 @@ class App extends Component {
                                             <Nav.Link as={Link} to="/privatepage02">
                                                 PrivatePage02
                                             </Nav.Link>
+                                            <Nav.Link as={Link} to="/privatepage03">
+                                                PrivatePage03
+                                            </Nav.Link>
+                                            <Nav.Link as={Link} to="/privatepage04">
+                                                PrivatePage04
+                                            </Nav.Link>
+                                            <Nav.Link as={Link} to="/privatepage05">
+                                                PrivatePage05
+                                            </Nav.Link>
                                             <Nav.Link as={Link} to="/userinfo">
                                                 UserInfo
                                             </Nav.Link>
@@ -75,9 +86,22 @@ class App extends Component {
                                         <Route exact={true} path="/register" component={Register} />
                                         <Route exact={true} path="/silentrenew" component={SilentRenew} />
                                         <Route exact={true} path="/publicpage" component={PublicPage} />
-                                        <PrivateRoute path="/privatepage01" component={PrivatePage} />
+                                        {/* This custom_message attribute will get droppped because PrivateRoute doesn't handle it */}
+                                        <PrivateRoute path="/privatepage01" component={PrivatePage} custom_message={"PrivatePage01"} />
+                                        {/* This custom_message will be honored by PrivateRoutePassProps, though weird way to pass props */}
+                                        <PrivateRoutePassProps path="/privatepage02" component={PrivatePage} custom_message={"PrivatePage02"} />
+                                        {/* This custom_message will be honored by PrivateRoutePassProps which handles render() with props */}
+                                        <PrivateRouteComponentOrRender
+                                            path="/privatepage03"
+                                            render={() => <PrivatePage custom_message={"PrivatePage03"} />}
+                                        />
+                                        {/* Prove that PrivateRouteComponentOrRender can handle both render() and component attributes */}
+                                        <PrivateRouteComponentOrRender path="/privatepage04" component={PrivatePage} />
+                                        <PrivateRouteOnlyRender
+                                            path="/privatepage05"
+                                            render={() => <PrivatePage custom_message={"PrivatePage05"} />}
+                                        />
                                         <PrivateRoute path="/userinfo" component={UserInfo} />
-                                        <PrivateRouteAddManualProp path="/privatepage02" component={PrivatePage} custom_message={"Hi Pebbles"} />
                                         <Route path="/" component={HomePage} />
                                     </Switch>
                                 </BrowserRouter>

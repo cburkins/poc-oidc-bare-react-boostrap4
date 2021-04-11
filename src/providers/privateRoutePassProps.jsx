@@ -1,16 +1,16 @@
-/* /src/routes/privateRoute.jsx */
+///* /src/routes/privateRoute.jsx */
 import React from "react";
 import { Route } from "react-router-dom";
-import { AuthContextConsumer } from "../providers/authProvider";
+import { AuthContextConsumer } from "./authProvider";
 
-export const PrivateRouteAddManualProp = ({ component, ...rest }) => {
+export const PrivateRoutePassProps = ({ component, ...rest }) => {
     console.log("start PrivateRoute() component");
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // This is a HOC: Takes a Component as arg, returns a modified Compoment
+    // This is a HOC: Takes a Component as arg, returns a new Compoment
     const withAuthHOC = function (Component) {
         //
-        // Define a React Functional Components (takes props, and returns JSX)
+        // Define a React Functional Component (takes props, and returns JSX)
         let FunctionalComponent = function (props) {
             let JSXThatWeReturn = (
                 // AuthContextConsumer is equivalent to AuthContext.Consumer
