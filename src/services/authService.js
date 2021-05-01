@@ -114,9 +114,7 @@ export default class AuthService {
         // 2) Use sessionStorage.getItem to manually get the object (and access_token) that should be there
         // Method 2 has the same effect, and is sync, so we use that
 
-        const oidcStorage = JSON.parse(
-            sessionStorage.getItem(`oidc.user:${process.env.REACT_APP_AUTH_URL}:${process.env.REACT_APP_IDENTITY_CLIENT_ID}`)
-        );
+        const oidcStorage = JSON.parse(sessionStorage.getItem(`oidc.user:${currentConfig.AUTH_URL}:${currentConfig.IDENTITY_CLIENT_ID}`));
 
         // If there's an access_token, in the oidc-client user object, then the user is likely authenticated (could be expired)
         return !!oidcStorage?.access_token;
