@@ -35,7 +35,7 @@ class App extends Component {
                             // inside context
                             const isAuthenticatedBooleanString = authContext.isAuthenticated() ? "Authenticated" : "Not Authenticated";
                             return (
-                                <BrowserRouter>
+                                <BrowserRouter basename={"/"}>
                                     <Navbar bg="light">
                                         {/* 1st Nav item with className mr-auto pushes the 2nd Nav item to the right */}
                                         <Nav className="mr-auto">
