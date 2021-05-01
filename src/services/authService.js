@@ -45,6 +45,8 @@ const IDENTITY_CONFIG = {
     // },
 };
 
+console.log("🚀 ~ IDENTITY_CONFIG", IDENTITY_CONFIG);
+
 export default class AuthService {
     UserManager;
 
