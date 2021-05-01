@@ -18,6 +18,7 @@ const deployedConfig = {
 
 // const currentConfig = localhostConfig;
 const currentConfig = process.env.NODE_ENV === "production" ? deployedConfig : localhostConfig;
+console.warn("currentConfig:", currentConfig);
 
 // All the env variables should be defined in the /.env file
 const IDENTITY_CONFIG = {
