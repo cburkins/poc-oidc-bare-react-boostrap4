@@ -85,7 +85,7 @@ class App extends Component {
                                         <Route exact={true} path="/logout/callback" component={LogoutCallback} />
                                         <Route exact={true} path="/register" component={Register} />
                                         <Route exact={true} path="/silentrenew" component={SilentRenew} />
-                                        <Route exact={true} path="/publicpage" component={PublicPage} />
+                                        <Route exact={true} path="/publicpage" render={() => <PublicPage />} />
                                         {/* This custom_message attribute will get droppped because PrivateRoute doesn't handle it */}
                                         <PrivateRoute path="/privatepage01" component={PrivatePage} custom_message={"PrivatePage01"} />
                                         {/* This custom_message will be honored by PrivateRoutePassProps, though weird way to pass props */}
