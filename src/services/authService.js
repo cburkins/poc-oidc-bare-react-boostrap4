@@ -19,7 +19,6 @@ const deployedConfig = {
 
 // const currentConfig = localhostConfig;
 const currentConfig = process.env.NODE_ENV === "production" ? deployedConfig : localhostConfig;
-console.warn("currentConfig:", currentConfig);
 
 // All the env variables should be defined in the /.env file
 const IDENTITY_CONFIG = {
@@ -45,8 +44,6 @@ const IDENTITY_CONFIG = {
     // },
 };
 
-console.log("🚀 ~ IDENTITY_CONFIG", IDENTITY_CONFIG);
-
 export default class AuthService {
     UserManager;
 
@@ -62,7 +59,7 @@ export default class AuthService {
 
         this.UserManager.events.addUserLoaded((user) => {
             if (window.location.href.indexOf("signin-oidc") !== -1) {
-                console.log("UserManager() event addUserLoaded has triggered navigateToScreen(), here's the user record:", user);
+                // console.log("UserManager() event addUserLoaded has triggered navigateToScreen(), here's the user record:", user);
                 this.navigateToScreen();
             }
         });
@@ -79,7 +76,7 @@ export default class AuthService {
     signinRedirectCallback = () => {
         console.log("signinRedirectCallback()");
         this.UserManager.signinRedirectCallback().then((user) => {
-            console.warn("signinRedirectCallback() and user:", user);
+            // console.log("signinRedirectCallback() and user:", user);
         });
     };
 
