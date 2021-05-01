@@ -26,7 +26,7 @@ const IDENTITY_CONFIG = {
     authority: currentConfig.AUTH_URL, //(string): The URL of the OIDC provider.
     client_id: currentConfig.IDENTITY_CLIENT_ID, //(string): Your client application's identifier as registered with the OIDC provider.
     redirect_uri: currentConfig.LOGON_REDIRECT_URL, //The URI of your client application to receive a response from the OIDC provider.
-    login: process.env.REACT_APP_AUTH_URL + "/login",
+    login: currentConfig.AUTH_URL + "/login",
     automaticSilentRenew: false, //(boolean, default: false): Flag to indicate if there should be an automatic attempt to renew the access token prior to its expiration.
     loadUserInfo: false, //(boolean, default: true): Flag to control if additional identity data is loaded from the user info endpoint in order to populate the user's profile.
     // silent_redirect_uri: process.env.REACT_APP_SILENT_REDIRECT_URL, //(string): The URL for the page containing the code handling the silent renew.
