@@ -6,14 +6,14 @@ import { BrowserRouter, Link } from "react-router-dom";
 
 import { Route, Switch } from "react-router-dom";
 
-import { Callback } from "./components/authCallback";
-import { Logout } from "./components/authLogout";
-import { Login } from "./components/authLogin";
+import { AuthCallback } from "./components/authCallback";
+import { AuthLogout } from "./components/authLogout";
+import { AuthLogin } from "./components/authLogin";
 import { LogoutCallback } from "./components/authLogoutCallback";
 import { Register } from "./components/authRegister";
 import { SilentRenew } from "./components/authSilentRenew";
 
-import { PrivateRoute } from "./providers/privateRoute";
+import { PrivateRouteOnlyComponent } from "./providers/privateRouteOnlyComponent";
 import { PrivateRoutePassProps } from "./providers/privateRoutePassProps";
 import { PrivateRouteComponentOrRender } from "./providers/PrivateRouteComponentOrRender";
 import { PrivateRouteOnlyRender } from "./providers/PrivateRouteOnlyRender";
@@ -79,15 +79,17 @@ class App extends Component {
                                     </Navbar>
 
                                     <Switch>
-                                        <Route exact={true} path="/signin-oidc" component={Callback} />
-                                        <Route exact={true} path="/logout" component={Logout} />
-                                        <Route exact={true} path="/login" component={Login} />
+                                        <Route exact={true} path="/signin-oidc" component={AuthCallback} />
+                                        <Route exact={true} path="/logout" component={AuthLogout} />
+                                        <Route exact={true} path="/login" component={AuthLogin} />
                                         <Route exact={true} path="/logout/callback" component={LogoutCallback} />
                                         <Route exact={true} path="/register" component={Register} />
                                         <Route exact={true} path="/silentrenew" component={SilentRenew} />
-                                        <Route exact={true} path="/publicpage" render={() => <PublicPage />} />
-                                        {/* This custom_message attribute will get droppped because PrivateRoute doesn't handle it */}
-                                        <PrivateRoute path="/privatepage01" component={PrivatePage} custom_message={"PrivatePage01"} />
+                                        <Route exact={true} path="/publicpage" render={(props) => <PublicPage />} />
+                                        <PrivateRouteOnlyRender
+                                            path="/privatepage01"
+                                            render={() => <PrivatePage custom_message={"PrivatePage01"} />}
+                                        />
                                         {/* This custom_message will be honored by PrivateRoutePassProps, though weird way to pass props */}
                                         <PrivateRoutePassProps path="/privatepage02" component={PrivatePage} custom_message={"PrivatePage02"} />
                                         {/* This custom_message will be honored by PrivateRoutePassProps which handles render() with props */}
@@ -97,11 +99,9 @@ class App extends Component {
                                         />
                                         {/* Prove that PrivateRouteComponentOrRender can handle both render() and component attributes */}
                                         <PrivateRouteComponentOrRender path="/privatepage04" component={PrivatePage} />
-                                        <PrivateRouteOnlyRender
-                                            path="/privatepage05"
-                                            render={() => <PrivatePage custom_message={"PrivatePage05"} />}
-                                        />
-                                        <PrivateRoute path="/userinfo" component={UserInfo} />
+                                        {/* This custom_message attribute will get droppped because PrivateRouteOnlyComponent doesn't handle it */}
+                                        <PrivateRouteOnlyComponent path="/privatepage05" component={PrivatePage} custom_message={"PrivatePage05"} />
+                                        <PrivateRouteOnlyRender path="/userinfo" render={() => <UserInfo />} />
                                         <Route path="/" component={HomePage} />
                                     </Switch>
                                 </BrowserRouter>

@@ -2,11 +2,11 @@
 import React from "react";
 import { AuthContextConsumer } from "../providers/authProvider";
 
-export const Callback = () => (
+export const AuthCallback = () => (
     <AuthContextConsumer>
         {(authContext) => {
             authContext.signinRedirectCallback();
-            return <span>loading</span>;
+            return <span>loading (within AuthCallback)</span>;
         }}
     </AuthContextConsumer>
 );

@@ -3,11 +3,11 @@
 import React from "react";
 import { AuthContextConsumer } from "../providers/authProvider";
 
-export const Login = () => (
+export const AuthLogin = () => (
     <AuthContextConsumer>
         {(authContext) => {
             authContext.signinRedirect();
-            return <span>loading</span>;
+            return <span>loading (within AuthLogin)</span>;
         }}
     </AuthContextConsumer>
 );

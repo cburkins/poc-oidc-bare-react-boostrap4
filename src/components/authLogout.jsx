@@ -3,11 +3,11 @@
 import React from "react";
 import { AuthContextConsumer } from "../providers/authProvider";
 
-export const Logout = () => (
+export const AuthLogout = () => (
     <AuthContextConsumer>
         {(authContext) => {
             authContext.logout();
-            return <span>loading</span>;
+            return <span>loading (within AuthLogout)</span>;
         }}
     </AuthContextConsumer>
 );

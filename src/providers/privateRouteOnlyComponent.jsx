@@ -1,8 +1,8 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import { AuthContextConsumer } from "../providers/authProvider";
+import { AuthContextConsumer } from "./authProvider";
 
-export const PrivateRoute = ({ component: orig_component, render: orig_render, ...rest }) => {
+export const PrivateRouteOnlyComponent = ({ component: orig_component, render: orig_render, ...rest }) => {
     //
     // renderFn takes a Component
     const renderFn = (Component) => (props) => (
@@ -19,6 +19,5 @@ export const PrivateRoute = ({ component: orig_component, render: orig_render, .
         </AuthContextConsumer>
     );
 
-    console.log("component:", orig_component);
     return <Route {...rest} render={renderFn(orig_component)} />;
 };
