@@ -1,15 +1,34 @@
 import { UserManager, WebStorageStateStore, Log } from "oidc-client";
 
+const sharedConfig = {
+    AUTH_URL: "https://login.microsoftonline.com/3ac94b33-9135-4821-9502-eafda6592a35/v2.0",
+    IDENTITY_CLIENT_ID: "9d8dbaf6-8a28-499d-af06-eee7b517938d",
+};
+
+const localhostConfig = {
+    ...sharedConfig,
+    LOGON_REDIRECT_URL: "http://localhost:3000/signin-oidc",
+    LOGOFF_REDIRECT_URL: "http://localhost:3000/",
+};
+
+const deployedConfig = {
+    LOGON_REDIRECT_URL: "https://kyloren.na.jnj.com/signin-oidc",
+    LOGOFF_REDIRECT_URL: "https://kyloren.na.jnj.com",
+};
+
+// const currentConfig = localhostConfig;
+const currentConfig = process.env.NODE_ENV === "production" ? deployedConfig : localhostConfig;
+
 // All the env variables should be defined in the /.env file
 const IDENTITY_CONFIG = {
-    authority: process.env.REACT_APP_AUTH_URL, //(string): The URL of the OIDC provider.
-    client_id: process.env.REACT_APP_IDENTITY_CLIENT_ID, //(string): Your client application's identifier as registered with the OIDC provider.
-    redirect_uri: process.env.REACT_APP_REDIRECT_URL, //The URI of your client application to receive a response from the OIDC provider.
+    authority: currentConfig.AUTH_URL, //(string): The URL of the OIDC provider.
+    client_id: currentConfig.IDENTITY_CLIENT_ID, //(string): Your client application's identifier as registered with the OIDC provider.
+    redirect_uri: currentConfig.LOGON_REDIRECT_URL, //The URI of your client application to receive a response from the OIDC provider.
     login: process.env.REACT_APP_AUTH_URL + "/login",
     automaticSilentRenew: false, //(boolean, default: false): Flag to indicate if there should be an automatic attempt to renew the access token prior to its expiration.
     loadUserInfo: false, //(boolean, default: true): Flag to control if additional identity data is loaded from the user info endpoint in order to populate the user's profile.
     // silent_redirect_uri: process.env.REACT_APP_SILENT_REDIRECT_URL, //(string): The URL for the page containing the code handling the silent renew.
-    post_logout_redirect_uri: process.env.REACT_APP_LOGOFF_REDIRECT_URL, // (string): The OIDC post-logout redirect URI.
+    post_logout_redirect_uri: currentConfig.LOGOFF_REDIRECT_URL, // (string): The OIDC post-logout redirect URI.
     audience: "https://example.com", //is there a way to specific the audience when making the jwt
     scope: "openid profile User.Read", //(string, default: 'openid'): The scope being requested from the OIDC provider.
     // Helpful as Azure tenant OIDC does not seem to return a /checksession endpoint
