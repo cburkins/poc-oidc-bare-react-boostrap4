@@ -12,6 +12,7 @@ const localhostConfig = {
 };
 
 const deployedConfig = {
+    ...sharedConfig,
     LOGON_REDIRECT_URL: "https://kyloren.na.jnj.com/signin-oidc",
     LOGOFF_REDIRECT_URL: "https://kyloren.na.jnj.com",
 };
