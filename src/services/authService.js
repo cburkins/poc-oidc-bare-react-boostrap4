@@ -2,6 +2,7 @@ import { UserManager, WebStorageStateStore, Log } from "oidc-client";
 
 const sharedConfig = {
     AUTH_URL: "https://login.microsoftonline.com/3ac94b33-9135-4821-9502-eafda6592a35/v2.0",
+    // for the Azure app registration called "chad-work-graphapi01"
     IDENTITY_CLIENT_ID: "9d8dbaf6-8a28-499d-af06-eee7b517938d",
 };
 
